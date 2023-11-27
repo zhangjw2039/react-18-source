@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     // 继承其它的eslint的配置（具体哪些规则打开，哪些规则关闭）
     "extends": [
@@ -22,6 +23,7 @@
     "rules": {
         "semi": ["error", "always"],
         "eqeqeq": "error",
-        "quotes": ["warn", "double", "avoid-escape"]
+        "quotes": ["warn", "double", "avoid-escape"],
+        "@typescript-eslint/no-explicit-any": ["off"]
     }
 }
