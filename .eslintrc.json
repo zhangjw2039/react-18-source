@@ -24,6 +24,8 @@
         "semi": ["error", "always"],
         "eqeqeq": "error",
         "quotes": ["warn", "double", "avoid-escape"],
-        "@typescript-eslint/no-explicit-any": ["off"]
+        "@typescript-eslint/no-explicit-any": ["off"],
+        "no-constant-condition": ["off"],
+        "no-case-declarations": ["off"]
     }
 }

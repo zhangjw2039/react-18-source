@@ -12,3 +12,6 @@ export interface ReactElementType {
     props: Props;
     __mark: string;
 }
+
+// action 类型 同时兼容 setState({}) 和 setState(() => ({}))
+export type Action<State> = State | ((preState: State) => State);
