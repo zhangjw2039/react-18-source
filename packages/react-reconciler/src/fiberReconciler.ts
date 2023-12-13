@@ -23,7 +23,7 @@ export function createContainer(container: Container) {
 export function updateContainer(element: ReactElementType | null, root: FiberRootNode) {
     const hostRootFiber = root.current;
     // 创建更新
-    const update = createUpdate(element);
+    const update = createUpdate(element); // { action: {$$type: xxx, type: xxx, ....} }
     // 将更新插入到hostRootFiber中更新单位中
     enqueueUpdate(hostRootFiber.updateQueue, update);
     scheduleUpdateOnFiber(hostRootFiber);

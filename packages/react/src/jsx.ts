@@ -56,7 +56,7 @@ export function jsx(type: ElementType, props: Props, ...maybeChildren: any[]) {
             props.children = maybeChildren;
         }
     }
-    return jsx(type, key, ref, _props);
+    return ReactElement(type, key, ref, _props);
 }
 
 export const jsxDEV = jsx;

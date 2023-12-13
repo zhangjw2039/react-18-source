@@ -13,7 +13,8 @@ export default [
         output: {
             file: `${outputPath}/index.js`,
             name: "index.js",
-            format: "umd"
+            // format: "umd",
+            format: "es"
         },
         plugins: [...getBaseRollupPlugins(), generatePackageJson({
             inputFolder: inputPath,
@@ -34,12 +35,14 @@ export default [
             {
                 file: `${outputPath}/jsx-runtime.js`,
                 name: "jsx-runtime.js",
-                format: "umd"
+                // format: "umd",
+                format: "es"
             },
             {
                 file: `${outputPath}/jsx-dev-runtime.js`,
                 name: "jsx-dev-runtime.js",
-                format: "umd"
+                // format: "umd",
+                format: "es"
             }
         ],
         plugins: getBaseRollupPlugins()

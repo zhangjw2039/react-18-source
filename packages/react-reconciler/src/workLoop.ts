@@ -1,4 +1,5 @@
 import { beginWork } from "./beginWork";
+import { commitMutationEffects } from "./commitWork";
 import { completeWork } from "./completeWork";
 import { FiberNode, FiberRootNode, createWorkInProgess } from "./fiber";
 import { MutationMask, NoFlags } from "./fiberFlags";
@@ -85,7 +86,9 @@ function commitRoot(root: FiberRootNode) {
     if(subtreeHasEffect || rootHasEffect) {
         // beforeMutation
 
+        
         // mutation
+        commitMutationEffects(finishedWork)
         // currentFiber树和workInProgess树进行切换
         root.current = finishedWork;
 
@@ -121,7 +124,6 @@ function completeUnitOfWork(fiber: FiberNode) {
     do {
         completeWork(node);
         const sibling = node.sibling;
-        
         if(sibling !== null) {
             workInProgess = sibling;
             return;

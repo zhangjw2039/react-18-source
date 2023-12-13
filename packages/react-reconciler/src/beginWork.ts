@@ -42,7 +42,7 @@ function updateHostRoot(wip: FiberNode) {
 
     // 计算子fiberNode
     const nextChildren = wip.memoizedState;
-    reconcilerChildren(wip, nextChildren);
+    reconcilerChildren(wip, nextChildren); // fiberNode { $$type: xxx, type: xxx .... }
     return wip.child;
 }
 
@@ -66,6 +66,6 @@ function reconcilerChildren(wip: FiberNode, children: ReactElementType) {
     if(current !== null) {
         wip.child = reconcilerChildFibers(wip, current.child, children);
     }else {
-        wip.child = mountChildFibers(wip, null , children);
+        wip.child = mountChildFibers(wip, null , children); // fiberNode { $$type: xxx, type: xxx .... }
     }
 }
