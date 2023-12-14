@@ -61,6 +61,7 @@ function renderRoot(root: FiberRootNode) {
 
     const finishedWork = root.current.alternate;
     root.finishedWork = finishedWork;
+    console.log(finishedWork)
 
     // 根据渲染完成的workInProcess树 生成真实dom
     commitRoot(root);

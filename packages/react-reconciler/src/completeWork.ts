@@ -1,6 +1,6 @@
 import { Container, appendInitialChild, createInstance, createTextInstance } from "hostConfig";
 import { FiberNode } from "./fiber";
-import { HostComponent, HostRoot, HostText } from "./workTags";
+import { FunctionComponent, HostComponent, HostRoot, HostText } from "./workTags";
 import { NoFlags } from "./fiberFlags";
 
 /**
@@ -17,7 +17,7 @@ export const completeWork = (wip: FiberNode) => {
                 // 1. 构建 DOM树
                 const instance = createInstance(wip.type, newProps);
                 // // 2. 将DOM插入到DOM树中
-                appendAllChildren(instance, wip);
+                appendAllChildren(instance, wip); // 构建一颗离屏DOM树
                 wip.stateNode = instance;
             }
             bubbleProperties(wip);
@@ -35,6 +35,9 @@ export const completeWork = (wip: FiberNode) => {
             }
             bubbleProperties(wip); 
             return null;
+        case FunctionComponent:
+            bubbleProperties(wip); 
+            return null;
         default:
             if(__DEV__) {
                 console.log("未实现的类型completeWork", wip);
@@ -49,7 +52,7 @@ function appendAllChildren(parent: Container, wip: FiberNode) {
     while(node !== null) {
         if(node.tag === HostComponent || node.tag === HostText) {
             appendInitialChild(parent, node.stateNode);
-        }else if(node.child !== null) {
+        }else if(node.child !== null) { // 如果是函数组件则找到函数组件的child
             node.child.return = node;
             node = node.child;
             continue;
@@ -59,12 +62,14 @@ function appendAllChildren(parent: Container, wip: FiberNode) {
             return;
         }
 
+        // 当前的while循环用用户结束函数组件的归的阶段
         while(node.sibling === null) {
             if(node.return === null || node.return === wip) {
                 return
             }
             node = node.return
         }
+        
         node.sibling.return = node.return;
 		node = node.sibling;
     }

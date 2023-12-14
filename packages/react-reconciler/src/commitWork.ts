@@ -36,7 +36,6 @@ export function commitMutationEffects(finishedWork: FiberNode) {
 
 function commitMutationEffectsOnFiber(finishedWork: FiberNode) {
     const flags = finishedWork.flags
-
     if((flags & Placement) !== NoFlags) {
         // 存在Placement操作
         commitPlacement(finishedWork);
@@ -50,7 +49,6 @@ function commitPlacement(finishedWork: FiberNode) {
         console.warn("执行Placement操作")
     }
     const hostParent = getHostParent(finishedWork);
-
     if(hostParent !== null) {
         appentPlacementNodeIntoCoontainer(finishedWork, hostParent)
     }

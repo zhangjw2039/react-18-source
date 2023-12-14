@@ -1,8 +1,9 @@
 import { ReactElementType } from "shared/ReactTypes";
 import { FiberNode } from "./fiber";
 import { UpdateQueue, processUpdateQueue } from "./updateQueue";
-import { HostComponent, HostRoot, HostText } from "./workTags";
+import { FunctionComponent, HostComponent, HostRoot, HostText } from "./workTags";
 import { mountChildFibers, reconcilerChildFibers } from "./childReconciler";
+import { renderWithHooks } from "./fiberHooks";
 
 /**
  * 递归---递
@@ -17,6 +18,8 @@ export const beginWork = (wip: FiberNode) => {
             return updateHostComponent(wip);
         case HostText:
             return null;
+        case FunctionComponent:
+            return updateFunctionComponent(wip);
         default:
             if(__DEV__) {
                 console.warn("beginwork 未实现的处理");
@@ -24,6 +27,16 @@ export const beginWork = (wip: FiberNode) => {
             return null;
     }
 };
+
+/**
+ * 处理函数组件
+ * @param wip 
+ */
+function updateFunctionComponent(wip: FiberNode) {
+    const nextChildren = renderWithHooks(wip);
+    reconcilerChildren(wip, nextChildren);
+    return wip.child;
+}
 
 /**
  * 处理HostFiberNode
